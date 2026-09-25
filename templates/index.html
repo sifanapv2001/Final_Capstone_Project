@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>NASA Exoplanet Detection</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>NASA Exoplanet Detection & Classification</h1>
+
+    <p class="description">
+        Enter astronomical parameters to classify
+        an exoplanet candidate.
+    </p>
+
+
+    <form action="/predict"
+          method="POST">
+
+
+        <!-- Prediction Type -->
+
+        <label for="prediction_type">
+            Classification Type
+        </label>
+
+        <select name="prediction_type"
+                id="prediction_type"
+                required>
+
+            <option value="binary">
+                Binary Classification
+            </option>
+
+            <option value="multiclass">
+                Multiclass Classification
+            </option>
+
+        </select>
+
+
+        <!-- Input Features -->
+
+        {% for feature in features %}
+
+        <label for="{{ feature }}">
+            {{ feature }}
+        </label>
+
+        <input
+            type="number"
+            step="any"
+            name="{{ feature }}"
+            id="{{ feature }}"
+            required
+        >
+
+        {% endfor %}
+
+
+        <button type="submit">
+            Predict
+        </button>
+
+    </form>
+
+
+    {% if result %}
+
+    <div class="result">
+
+        <h2>{{ title }}</h2>
+
+        <p>{{ result }}</p>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+</body>
+
+</html>
